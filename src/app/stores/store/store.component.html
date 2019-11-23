@@ -1,0 +1,59 @@
+<mat-toolbar>
+    <span>{{service.form.controls['$key'].value?"Змінити сад":"Новий сад"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
+    <mat-grid-list cols="3" rowHeight="400px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <input type="hidden" formControlName="$key">
+                <mat-form-field>
+                    <input formControlName="name" matInput placeholder="Найменування*">
+                    <mat-error>Найменування обов'язкове.</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="address" matInput placeholder="Адреса">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="contactpersons" matInput placeholder="Контактні особи">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="telephone" matInput placeholder="Телефони">
+                </mat-form-field>
+
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="controles-container">
+                <input type="hidden" formControlName="$key">
+                <mat-form-field>
+                    <input formControlName="sitelist" matInput placeholder="Сайт">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="youtubelist" matInput placeholder="Youtube">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="filelist" matInput placeholder="Файли">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="controles-container">
+                <mat-form-field>
+                    <input formControlName="content" matInput placeholder="Контент">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="comment" matInput placeholder="Примітка">
+                </mat-form-field>
+                <div class="button-row">
+                    <button mat-raised-button color="primary" type="submit"
+                        [disabled]="service.form.invalid">Зберігти</button>
+                    <button mat-raised-button color="warn" (click)="onClear()">Очистити</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

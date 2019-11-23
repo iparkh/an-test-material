@@ -1,0 +1,73 @@
+<div class="search-div">
+
+    <button mat-raised-button (click)="onCreate()">
+        <mat-icon>note_add</mat-icon>Створити
+    </button>
+    <mat-form-field class="search-form-field" floatLabel="never">
+        <input matInput [(ngModel)]="searchKey" placeholder="Знайти" autocomplete="off" (keyup)="applyFilter()">
+        <button mat-button matSuffix mat-icon-button arial-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <!-- <button mat-raised-button (click)="onLoadFile()">
+        <mat-icon>archive</mat-icon>Завантажити інформацію з файла
+    </button> -->
+</div>
+<div class="mat-elevation-z8">
+    <mat-table [dataSource]="listData" matSort>
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Найменування</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="address">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Адреса</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.address}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="contactpersons">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Контакна особа</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.contactpersons}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="telephone">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Телефон</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.telephone}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="comment">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Коментар</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.comment}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-icon-button color="accent" (click)="onShopping(row.$key)">
+                    <mat-icon>shopping_cart</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="onEdit(row)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="onDelete(row.$key)">
+                    <mat-icon>delete_outline</mat-icon>
+                </button>
+
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="6">Завантаження інформації...</mat-footer-cell>
+        </ng-container>
+        <ng-container matColumnDef="noData">
+            <mat-footer-cell *matFooterCellDef colspan="6">Інформація відсутня.</mat-footer-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+        </mat-header-row>
+
+        <mat-row *matRowDef="let row;columns:displayedColumns;">
+        </mat-row>
+
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+        <mat-footer-row *matFooterRowDef="['noData']"
+            [ngClass]="{'hide': !(listData!=null && listData.data.length==0)}">
+        </mat-footer-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>

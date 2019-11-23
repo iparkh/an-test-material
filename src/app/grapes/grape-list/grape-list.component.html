@@ -1,0 +1,78 @@
+<div class="search-div">
+
+    <button mat-raised-button (click)="onCreate()">
+        <mat-icon>note_add</mat-icon>Створити
+    </button>
+    <mat-form-field class="search-form-field" floatLabel="never">
+        <input matInput [(ngModel)]="searchKey" placeholder="Знайти" autocomplete="off" (keyup)="applyFilter()">
+        <button mat-button matSuffix mat-icon-button arial-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+    <!-- <button mat-raised-button (click)="onLoadFile()">
+        <mat-icon>archive</mat-icon>Завантажити інформацію з файла
+    </button> -->
+</div>
+<div class="mat-elevation-z8">
+    <mat-table [dataSource]="listData" matSort>
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Сорт</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="selection">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Селекція</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.selection}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="daysreach">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Достигає</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.daysreach}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="weighbunch">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Вага грони</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.weighbunch}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="weighberry">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Вага ягоди</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.weighberry}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="colorberry">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Колір</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.colorberry}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="taste">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Смак</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.taste}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-icon-button color="primary" (click)="onEdit(row)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="onDelete(row.$key)">
+                    <mat-icon>delete_outline</mat-icon>
+                </button>
+
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="6">Завантаження інформації...</mat-footer-cell>
+        </ng-container>
+        <ng-container matColumnDef="noData">
+            <mat-footer-cell *matFooterCellDef colspan="6">Інформація відсутня.</mat-footer-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns">
+        </mat-header-row>
+
+        <mat-row *matRowDef="let row;columns:displayedColumns;">
+        </mat-row>
+
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+        <mat-footer-row *matFooterRowDef="['noData']"
+            [ngClass]="{'hide': !(listData!=null && listData.data.length==0)}">
+        </mat-footer-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>
