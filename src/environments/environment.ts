@@ -5,13 +5,7 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyA6i3-be3UAHQUgj-h-uc-Wctvyw3WZUzI",
-    authDomain: "testcrudipark.firebaseapp.com",
-    databaseURL: "https://testcrudipark.firebaseio.com",
-    projectId: "testcrudipark",
-    storageBucket: "testcrudipark.appspot.com",
-    messagingSenderId: "468667850454",
-    appId: "1:468667850454:web:1ba41c342d5c3f97"
+   
   }
 };
 
